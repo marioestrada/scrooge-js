@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Scrooge JS - Automatic Affiliate/Referral Linking</title>
+
+<style type="text/css" media="screen">
+body{
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  background: #ddd;
+  margin: 0;
+  padding: 0;
+}
+
+a{
+  text-decoration: none;
+  color: #257ad2;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+a:visited{
+  color: #1e5cb3;
+}
+
+#content{
+  background: #fff;
+  padding: 20px;
+  width: 940px;
+  margin: 0 auto;
+}
+
+pre{
+  padding: 5px;
+  overflow: auto;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+}
+
+code{
+  background: #f0f0f0;
+}
+
+li code{
+  font-size: 14px;
+}
+
+h1{
+  margin-top: 0;
+}
+</style>
+
+</head>
+<body>
+  
+<div id="content">
+  <h1>Scrooge JS</h1>
+
+  <p>A Javascript tool for adding referral information to correspondent links. Supports any affiliate that just needs a parameter added to the link (Eg. http://somesite.com/product-1234/?ref={YOUR-REFERRAL-ID}). It also supports affiliate links through Commission Junction, it detects supported sites and replaces the link 'href' tag with the corresponding URL.</p>
+
+  <h2>Index</h2>
+
+  <ol>
+  <li><p><a href="#usage">Usage</a></p></li>
+  <li><p><a href="#api">Api</a></p></li>
+  <li><p><a href="#demo">Demo</a></p></li>
+  </ol>
+
+  <h2 id="usage">Usage</h2>
+
+  <ol>
+  <li><p>Include Scrooge.js in your <code>head</code>:</p>
+
+  <pre><code>&lt;script src="js/scrooge.js"&gt;&lt;/script&gt;</code></pre></li>
+  <li><p>Configure Scrooge inside a <code>&lt;script&gt;</code> tag after including it:</p>
+
+  <pre><code>&lt;script&gt;
+    Scrooge.setAffiliateId('amazon', '{YOUR-AFFILIATE-ID}')
+        .addSite('somesite', 'ref', '{YOUR-AFFILIATE-ID}')
+        .addCjSite('zappos', 'zappos.com', '{YOUR-AFFILIATE-ID}', '{MERCHANT-ID}');
+&lt;/script&gt;</code></pre></li>
+  <li><p>You're done.</p></li>
+  </ol>
+
+  <h2 id="api">API</h2>
+
+  <h3>Scrooge.start()</h3>
+
+  <p>Runs Scrooge and replaces every detected affiliate URL. You don't have to manually call it this method is run when the page is loaded. You can manually trigger the replacement after a DOM manipulation to detect and replace the new links.</p>
+
+  <h3>Scrooge.setContext(context)</h3>
+
+  <p>By default Scrooge searches for affiliate URLs in the whole document but if you want to limit the URL replacement to just the links inside an element you can use this method.</p>
+
+  <h4>Parameters</h4>
+
+  <ul>
+  <li><code>context</code> - <strong>String</strong> or <strong>DOM element</strong>.</li>
+  </ul>
+
+  <h4>Example usage</h4>
+
+  <pre><code>// Setting the context to a particular element with the id 'article'.
+Scrooge.setContext('#article');
+
+// Setting the context to a particular DOM element.
+Scrooge.setContext(window.article);</code></pre>
+
+  <h3>Scrooge.addSite(key, domain, parameter_name, affiliate_id)</h3>
+
+  <p>Adds an affiliate site for url detection and replacement.</p>
+
+  <h4>Parameters</h4>
+
+  <ul>
+  <li><code>key</code> - <strong>String</strong>, a key or id used internally by Scrooge to identify each affiliate.</li>
+  <li><code>domain</code> - <strong>String</strong>, the domain that will be searched in links to add the affiliate information.</li>
+  <li><code>parameter_name</code> - <strong>String</strong>, the name of the parameter that will be added to the url.</li>
+  <li><code>affiliate_id</code> - <strong>String</strong>, your affiliate id.</li>
+  </ul>
+
+  <h4>Example usage</h4>
+
+  <pre><code>// Adding iTunes as an affiliate
+Scrooge.addSite('itunes', 'itunes.apple.com', 'affId', '{YOUR-AFFILIATE-ID}');</code></pre>
+
+  <h3>Scrooge.addCjSite(key, domain, affiliate_id, merchant_id)</h3>
+
+  <p>Adds an affiliate site that works throught the Commision Junction referral system.</p>
+
+  <h4>Parameters</h4>
+
+  <ul>
+  <li><code>key</code> - <strong>String</strong>, a key or id used internally by Scrooge to identify each affiliate.</li>
+  <li><code>domain</code> - <strong>String</strong>, the domain that will be searched in links to add the affiliate information.</li>
+  <li><code>affiliate_id</code> - <strong>String</strong>, your CJ affiliate id (PID).</li>
+  <li><code>merchant_id</code> - <strong>String</strong>, the merchant link id (AID).</li>
+  </ul>
+
+  <h3>Scrooge.removeSite(key)</h3>
+
+  <p>Removes an affiliate site by its key.</p>
+
+  <h4>Parameters</h4>
+
+  <ul>
+  <li><code>key</code> - <strong>String</strong>, the key for the site that will be removed.</li>
+  </ul>
+
+  <h3>Scrooge.removeCjSite(key)</h3>
+
+  <p>Removes an affiliate site from Commission Junction by its key.</p>
+
+  <h4>Parameters</h4>
+
+  <ul>
+  <li><code>key</code> - <strong>String</strong>, the key for the site that will be removed.</li>
+  </ul>
+
+  <h3>Tips and Tricks</h3>
+
+  <ul>
+  <li><p>Every method returns an instance to the Scrooge object so every method is chainable:</p>
+
+  <pre><code>Scrooge.addSite().addCjSite().setAffiliateId();</code></pre></li>
+  <li><p>For Commission Junction you'll need the following information:</p>
+
+  <ul>
+  <li>PID (Affiliate ID): In the cj.com admin area: Account > Web Site Settings > PID</li>
+  <li>AID (Advertiser ID): The Advertiser/Merchant ID can be found by opening the Get Links of any active advertiser.</li>
+  </ul></li>
+  </ul>
+
+  <h2 id="demo">Demo</h2>
+
+  <h3>Javascript Code</h3>
+
+  <pre><code>&lt;script src="js/scrooge.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+// Setting the context to search only inside an element with a 'detect' id
+Scrooge.setContext('#detect')
+    // Adding support for amazon.com links
+    .addSite('amazon', 'amazon.com', 'tag', 'httpmariec-20')
+    // Adding support for iTunes links
+    .addSite('itunes', 'itunes.apple.com', 'affId', 'TEST')
+    // Adding support for newegg.com through Commmission Junction
+    .addCjSite('newegg', 'newegg.com', '4858864', '10440897')
+    // Adding support for a fictitous site
+    .addSite('somesite', 'somesite.com', 'referral', 'YOUR-REFERRAL-ID');
+&lt;/script&gt;</code></pre>
+
+  <h3>HTML Code</h3>
+
+  <pre><code>&lt;ul id="detect"&gt;
+    &lt;li&gt;&lt;a href="https://www.amazon.com/Western-Digital-Scorpio-Notebook-WD3200BEKT/dp/B001CO3EKQ/ref=sr_1_2?ie=UTF8&amp;qid=1299021901&amp;sr=8-2"&gt;Scorpio Black (Amazon)&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16822136831&amp;cm_re=wd_tv_live-_-22-136-831-_-Product"&gt;WD TV Live Hub Media Center (Newegg)&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://www.somesite.com/product/1234/"&gt;Dummy Site&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="http://itunes.apple.com/us/app/isaac-newtons-gravity/id345439503?mt=8"&gt;Isaac Newton's Gravity [iTunes]&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+  <h4>Detected and replaced</h4>
+
+  <ul id="detect">
+      <li><a href="https://www.amazon.com/Western-Digital-Scorpio-Notebook-WD3200BEKT/dp/B001CO3EKQ/ref=sr_1_2?ie=UTF8&qid=1299021901&sr=8-2">Scorpio Black (Amazon)</a></li>
+      <li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16822136831&cm_re=wd_tv_live-_-22-136-831-_-Product">WD TV Live Hub Media Center (Newegg)</a></li>
+      <li><a href="http://www.somesite.com/product/1234/">Dummy Site</a></li>
+      <li><a href="http://itunes.apple.com/us/app/isaac-newtons-gravity/id345439503?mt=8">Isaac Newton's Gravity [iTunes]</a></li>
+  </ul>
+
+  <h4>Not detected because is out of the Scrooge detection context</h4>
+
+  <ul id="no_detect">
+      <li><a href="https://www.amazon.com/Western-Digital-Scorpio-Notebook-WD3200BEKT/dp/B001CO3EKQ/ref=sr_1_2?ie=UTF8&qid=1299021901&sr=8-2">Scorpio Black (Amazon)</a></li>
+      <li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16822136831&cm_re=wd_tv_live-_-22-136-831-_-Product">WD TV Live Hub Media Center (Newegg)</a></li>
+      <li><a href="http://www.somesite.com/product/1234/">Dummy Site</a></li>
+      <li><a href="http://itunes.apple.com/us/app/isaac-newtons-gravity/id345439503?mt=8">Isaac Newton's Gravity [iTunes]</a></li>
+  </ul>
+
+  <script src="scrooge.demo.min.js"></script>
+  <script>
+  // Setting the context to search only inside an element with a 'detect' id
+  Scrooge.setContext('#detect')
+      // Adding support for amazon.com links
+      .addSite('amazon', 'amazon.com', 'tag', 'httpmariec-20')
+      // Adding support for iTunes links
+      .addSite('itunes', 'itunes.apple.com', 'affId', 'TEST')
+      // Adding support for newegg.com through Commmission Junction
+      .addCjSite('newegg', 'newegg.com', '4858864', '10440897')
+      // Adding support for a fictitous site
+      .addSite('somesite', 'somesite.com', 'referral', 'YOUR-REFERRAL-ID');
+  </script>
+
+</div>
+
+<!-- !Google Tracking --> 
+<script type="text/javascript"> 
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-1804175-7']);
+_gaq.push(['_trackPageview']);
+ 
+(function() {
+var ga = document.createElement('script');
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+    'http://www') + '.google-analytics.com/ga.js';
+ga.setAttribute('async', 'true');
+document.documentElement.firstChild.appendChild(ga);
+})();
+</script> 
+ 
+<!-- !Reinvigorate Tracking --> 
+<script type="text/javascript" src="http://include.reinvigorate.net/re_.js"></script> 
+<script type="text/javascript"> 
+try {
+reinvigorate.track("qi88f-u76940ookm");
+} catch(err) {}
+</script>
+
+</body>
+</html>
