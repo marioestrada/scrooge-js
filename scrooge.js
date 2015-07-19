@@ -39,7 +39,7 @@
 
   Scrooge.context = document
   Scrooge.sites = {
-    'amazon': { 'url': 'amazon.com', 'param': 'tag', 'affiliate_id': 'httpmariec-20' },
+    'amazon': { 'url': 'amazon.*', 'param': 'tag', 'affiliate_id': 'httpmariec-20' },
     'itunes': { 'url': 'itunes.apple.com', 'param': 'affId', 'affiliate_id': '0000' }
   }
   Scrooge.cj = {
@@ -47,6 +47,12 @@
     'sites': {
       'newegg': { 'url': 'newegg.com', 'affiliate_id': '4858864', 'merchant_id': '10440897'}
     }
+  }
+
+  var getRegExp = function (url) {
+    url = url.replace('*', '[a-z][a-z0-9\.]+');
+    var regex = new RegExp("http(s)?:\/\/(www\.)?" + url + "/", "i");
+    return regex;
   }
 
   Scrooge.start = function() {
@@ -70,7 +76,7 @@
       done = false
       for(site in this.sites) {
         s = this.sites[site]
-        regex = new RegExp("http(s)?:\/\/(www\.)?" + s.url + "/", "i")
+        regex = getRegExp(s.url)
         if(regex.test(href)) {
           new_href = this._addAffiliateInfo(href, s.param, s.affiliate_id)
           done = href !== new_href
@@ -81,7 +87,7 @@
       if(!done) {
         for(site in this.cj.sites) {
           s = this.cj.sites[site]
-          regex = new RegExp("http(s)?:\/\/(www\.)?" + s.url + "/", "i")
+          regex = getRegExp(s.url)
           if(regex.test(href)) {
             new_href = this._addCjAffiliateInfo(href, s.affiliate_id, s.merchant_id)
             done = href !== new_href

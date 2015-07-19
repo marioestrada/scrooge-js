@@ -112,7 +112,7 @@ Removes an affiliate site from Commission Junction by its key.
     // Setting the context to search only inside an element with a 'detect' id
     Scrooge.setContext('#detect')
         // Adding support for amazon.com links
-    	.addSite('amazon', 'amazon.com', 'tag', 'httpmariec-20')
+    	.addSite('amazon', 'amazon.*', 'tag', 'httpmariec-20')
     	// Adding support for iTunes links
     	.addSite('itunes', 'itunes.apple.com', 'affId', 'TEST')
     	// Adding support for newegg.com through Commmission Junction
