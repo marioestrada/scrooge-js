@@ -1,0 +1,23 @@
+{
+  "name": "scrooge-js",
+  "version": "1.0.0",
+  "description": "Automatically adds referral information to affiliate links",
+  "main": "scrooge.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "minify": "uglifyjs scrooge.js -o scrooge.min.js --comments"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marioestrada/scrooge-js.git"
+  },
+  "author": "Mario Estrada",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marioestrada/scrooge-js/issues"
+  },
+  "homepage": "https://github.com/marioestrada/scrooge-js",
+  "devDependencies": {
+    "uglify-js": "^2.4.23"
+  }
+}
