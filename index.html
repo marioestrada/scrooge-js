@@ -4,57 +4,57 @@
 <title>Scrooge JS - Automatic Affiliate/Referral Linking</title>
 
 <style type="text/css" media="screen">
-body{
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 17px;
-  background: #ddd;
-  margin: 0;
-  padding: 0;
-}
+  body{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 17px;
+    background: #ddd;
+    margin: 0;
+    padding: 0;
+  }
 
-a{
-  text-decoration: none;
-  color: #257ad2;
-}
+  a{
+    text-decoration: none;
+    color: #257ad2;
+  }
 
-a:hover{
-  text-decoration: underline;
-}
-a:visited{
-  color: #1e5cb3;
-}
+  a:hover{
+    text-decoration: underline;
+  }
+  a:visited{
+    color: #1e5cb3;
+  }
 
-#content{
-  background: #fff;
-  padding: 20px;
-  width: 940px;
-  margin: 0 auto;
-}
+  #content{
+    background: #fff;
+    padding: 20px;
+    width: 940px;
+    margin: 0 auto;
+  }
 
-pre{
-  padding: 5px;
-  overflow: auto;
-  background: #f0f0f0;
-  border: 1px solid #ddd;
-}
+  pre{
+    padding: 5px;
+    overflow: auto;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+  }
 
-code{
-  background: #f0f0f0;
-}
+  code{
+    background: #f0f0f0;
+  }
 
-li code{
-  font-size: 14px;
-}
+  li code{
+    font-size: 14px;
+  }
 
-h1{
-  margin-top: 0;
-}
+  h1{
+    margin-top: 0;
+  }
 </style>
 
 </head>
 <body>
-  
+
 <div id="content">
   <h1>Scrooge JS</h1>
 
@@ -221,7 +221,7 @@ Scrooge.setContext('#detect')
   <script src="scrooge.js"></script>
   <script>
   // Setting the context to search only inside an element with a 'detect' id
-  Scrooge.setContext('#detect')
+    Scrooge.setContext('#detect')
       // Adding support for amazon.com links
       .addSite('amazon', 'amazon.com', 'tag', 'httpmariec-20')
       // Adding support for iTunes links
@@ -234,27 +234,19 @@ Scrooge.setContext('#detect')
 
 </div>
 
-<!-- !Google Tracking --> 
-<script type="text/javascript"> 
+<!-- !Google Tracking -->
+<script type="text/javascript">
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-1804175-7']);
 _gaq.push(['_trackPageview']);
- 
+
 (function() {
 var ga = document.createElement('script');
-ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
     'http://www') + '.google-analytics.com/ga.js';
 ga.setAttribute('async', 'true');
 document.documentElement.firstChild.appendChild(ga);
 })();
-</script> 
- 
-<!-- !Reinvigorate Tracking --> 
-<script type="text/javascript" src="http://include.reinvigorate.net/re_.js"></script> 
-<script type="text/javascript"> 
-try {
-reinvigorate.track("qi88f-u76940ookm");
-} catch(err) {}
 </script>
 
 </body>
