@@ -46,7 +46,7 @@ By default Scrooge searches for affiliate URLs in the whole document but if you 
 
     // Setting the context to a particular element with the id 'article'.
     Scrooge.setContext('#article');
-    
+
     // Setting the context to a particular DOM element.
     Scrooge.setContext(window.article);
 
@@ -98,7 +98,7 @@ Removes an affiliate site from Commission Junction by its key.
 * Every method returns an instance to the Scrooge object so every method is chainable:
 
         Scrooge.addSite().addCjSite().setAffiliateId();
-        
+
 * For Commission Junction you'll need the following information:
     * PID (Affiliate ID): In the cj.com admin area: Account > Web Site Settings > PID
     * AID (Advertiser ID): The Advertiser/Merchant ID can be found by opening the Get Links of any active advertiser.
@@ -129,35 +129,3 @@ Removes an affiliate site from Commission Junction by its key.
     	<li><a href="http://www.somesite.com/product/1234/">Dummy Site</a></li>
     	<li><a href="http://itunes.apple.com/us/app/isaac-newtons-gravity/id345439503?mt=8">Isaac Newton's Gravity [iTunes]</a></li>
     </ul>
-
-#### Detected and replaced
-
-<ul id="detect">
-    <li><a href="https://www.amazon.com/Western-Digital-Scorpio-Notebook-WD3200BEKT/dp/B001CO3EKQ/ref=sr_1_2?ie=UTF8&qid=1299021901&sr=8-2">Scorpio Black (Amazon)</a></li>
-	<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16822136831&cm_re=wd_tv_live-_-22-136-831-_-Product">WD TV Live Hub Media Center (Newegg)</a></li>
-	<li><a href="http://www.somesite.com/product/1234/">Dummy Site</a></li>
-	<li><a href="http://itunes.apple.com/us/app/isaac-newtons-gravity/id345439503?mt=8">Isaac Newton's Gravity [iTunes]</a></li>
-</ul>
-
-#### Not detected because is out of the Scrooge detection context
-
-<ul id="no_detect">
-    <li><a href="https://www.amazon.com/Western-Digital-Scorpio-Notebook-WD3200BEKT/dp/B001CO3EKQ/ref=sr_1_2?ie=UTF8&qid=1299021901&sr=8-2">Scorpio Black (Amazon)</a></li>
-	<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16822136831&cm_re=wd_tv_live-_-22-136-831-_-Product">WD TV Live Hub Media Center (Newegg)</a></li>
-	<li><a href="http://www.somesite.com/product/1234/">Dummy Site</a></li>
-    <li><a href="http://itunes.apple.com/us/app/isaac-newtons-gravity/id345439503?mt=8">Isaac Newton's Gravity [iTunes]</a></li>
-</ul>
-
-<script src="scrooge.js"></script>
-<script>
-// Setting the context to search only inside an element with a 'detect' id
-Scrooge.setContext('#detect')
-    // Adding support for amazon.com links
-	.addSite('amazon', 'amazon.com', 'tag', 'httpmariec-20')
-	// Adding support for iTunes links
-	.addSite('itunes', 'itunes.apple.com', 'affId', 'TEST')
-	// Adding support for newegg.com through Commmission Junction
-	.addCjSite('newegg', 'newegg.com', '4858864', '10440897')
-	// Adding support for a fictitous site
-	.addSite('somesite', 'somesite.com', 'referral', 'YOUR-REFERRAL-ID');
-</script>
